@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Міні Ставок — Океанічна Гра</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        /* Стильний морський фон (градієнт від мілководдя до глибини) */
+        .sea-background {
+            background: linear-gradient(185deg, #0284c7 0%, #0369a1 40%, #075985 70%, #0c4a6e 100%);
+            background-attachments: fixed;
+        }
+
+        /* Анімація погойдування хвиль */
+        @keyframes wave {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        .animate-wave { animation: wave 4s ease-in-out infinite; }
+        
+        /* Логіка перемикання розділів */
+        .section-content { display: none; }
+        .section-content.active { display: block; animation: smoothAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @keyframes smoothAppear {
+            from { opacity: 0; transform: scale(0.96) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Ефект скла (Glassmorphism) для інтерфейсу */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="sea-background font-sans min-h-screen text-white antialiased">
+
+    <nav class="bg-slate-900/40 backdrop-blur-xl border-b border-white/10 sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-2xl font-black tracking-wider flex items-center gap-2 drop-shadow-md text-cyan-300">
+                    <span class="animate-wave inline-block">🌊</span> МІНІ СТАВОК
+                </div>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <button onclick="openSection('about')" class="nav-btn bg-white/10 hover:bg-white/20 px-5 py-2 rounded-xl font-bold transition-all text-sm backdrop-blur-sm cursor-pointer">Про ставок</button>
+                    <button onclick="openSection('rules')" class="nav-btn bg-white/10 hover:bg-white/20 px-5 py-2 rounded-xl font-bold transition-all text-sm backdrop-blur-sm cursor-pointer">Як грати</button>
+                    <button onclick="openSection('game')" class="nav-btn bg-cyan-400 hover:bg-cyan-300 text-slate-950 px-6 py-2 rounded-xl font-black shadow-lg shadow-cyan-500/20 text-sm transition-all transform hover:-translate-y-0.5 cursor-pointer">🎣 ЛОВИТИ РИБКУ</button>
+                    <button onclick="openSection('score')" class="nav-btn bg-white/10 hover:bg-white/20 px-5 py-2 rounded-xl font-bold transition-all text-sm backdrop-blur-sm cursor-pointer">Дошка балів</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-6 mt-6">
+
+        <div id="about" class="section-content active">
+            <div class="glass-card rounded-3xl p-8 md:p-12 shadow-2xl">
+                <span class="text-cyan-300 font-bold tracking-widest text-xs uppercase bg-cyan-400/10 px-3 py-1 rounded-full">Екосистема</span>
+                <h2 class="text-4xl md:text-5xl font-black mb-6 mt-2">Ласкаво просимо на глибину!</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <p class="text-lg leading-relaxed text-cyan-100/90">
+                        Мій "Міні Ставок" — це унікальний віртуальний симулятор підводного світу. Тут ми поєднали сучасні веб-технології із захопливою ігровою механікою. Наш ставок приховує безліч таємниць, які відкриються лише найуважнішим рибалкам!
+                    </p>
+                    <div class="bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 border border-white/10 p-8 rounded-2xl text-7xl text-center shadow-inner animate-pulse">
+                        🐠🐙🐳
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rules" class="section-content">
+            <div class="glass-card rounded-3xl p-8 md:p-12 shadow-2xl">
+                <span class="text-emerald-300 font-bold tracking-widest text-xs uppercase bg-emerald-400/10 px-3 py-1 rounded-full">Інструкція</span>
+                <h2 class="text-4xl font-black mb-6 mt-2">Правила Риболовлі</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+                        <div class="text-3xl mb-4">🛸</div>
+                        <h3 class="font-bold text-lg mb-2">1. Закид вудки</h3>
+                        <p class="text-sm text-cyan-100/70">Перейдіть у меню лову та запустіть таймер очікування.</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+                        <div class="text-3xl mb-4">⏱️</div>
+                        <h3 class="font-bold text-lg mb-2">2. Очікування</h3>
+                        <p class="text-sm text-cyan-100/70">Зачекайте 3 секунди, поки риба підпливе до наживки.</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+                        <div class="text-3xl mb-4">🔐</div>
+                        <h3 class="font-bold text-lg mb-2">3. Верифікація</h3>
+                        <p class="text-sm text-cyan-100/70">Введіть секретний код істоти, щоб підтвердити та зарахувати улов!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="game" class="section-content">
+            <div class="glass-card rounded-3xl p-12 shadow-2xl text-center relative overflow-hidden">
+                <div id="fishing-status">
+                    <div class="text-8xl mb-6 animate-wave inline-block">🎣</div>
+                    <h3 class="text-3xl font-black mb-2">Час закинути гачок</h3>
+                    <p class="text-cyan-200/70 mb-8 max-w-sm mx-auto">Риба плаває зовсім поруч. Натискай кнопку та затамуй подих!</p>
+                    <button onclick="startFishing()" class="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 text-xl font-black px-12 py-5 rounded-2xl shadow-xl shadow-cyan-400/10 hover:scale-105 active:scale-95 transition-all cursor-pointer">
+                        ЗАКИНУТИ ВУДКУ!
+                    </button>
+                </div>
+
+                <div id="countdown" class="hidden py-8">
+                    <div id="countdown-number" class="text-7xl font-black text-cyan-300 mb-4">3</div>
+                    <p class="text-xl font-medium tracking-wide text-cyan-100/80 animate-pulse">Очікування клювання...</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="score" class="section-content">
+            <div class="glass-card rounded-3xl p-8 shadow-2xl">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-black">🏆 Рахунок Рибалки</h2>
+                        <p class="text-sm text-cyan-200/60">Лови правильних істот, щоб очолити таблицю (мінімум: 0 балів)</p>
+                    </div>
+                    <div class="text-4xl font-black text-yellow-300 bg-white/10 px-8 py-3 rounded-2xl border border-white/10 shadow-inner">
+                        <span id="global-score">0</span> <span class="text-2xl">🌟</span>
+                    </div>
+                </div>
+                
+                <div class="grid gap-3">
+                    <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="flex items-center gap-3 text-lg font-semibold"><span>🐟</span> Звичайна рибка</div>
+                        <span class="text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-lg border border-emerald-500/20">+1 бал</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="flex items-center gap-3 text-lg font-semibold"><span>🦀</span> Краб</div>
+                        <span class="text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-lg border border-emerald-500/20">+3 бали</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="flex items-center gap-3 text-lg font-semibold"><span>🐳</span> Кит</div>
+                        <span class="text-yellow-400 font-bold bg-yellow-500/10 px-3 py-1 rounded-lg border border-yellow-500/20">+10 балів</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="flex items-center gap-3 text-lg font-semibold"><span>🐋</span> Касатка</div>
+                        <span class="text-rose-400 font-bold bg-rose-500/10 px-3 py-1 rounded-lg border border-rose-500/20">-5 балів</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="flex items-center gap-3 text-lg font-semibold"><span>🦈</span> Акула</div>
+                        <span class="text-rose-400 font-bold bg-rose-500/10 px-3 py-1 rounded-lg border border-rose-500/20">-4 бали</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div id="modal-card" class="bg-slate-900 border border-white/10 p-8 rounded-3xl shadow-2xl max-w-sm w-full text-center transform scale-90 transition-all duration-300 ease-out">
+            <div class="text-5xl mb-4">🔑</div>
+            <h3 class="text-2xl font-black mb-2 tracking-tight text-cyan-300">ПІДТВЕРДЖЕННЯ</h3>
+            <p class="text-slate-400 mb-6 text-sm">Введіть секретний код верифікації вилову:</p>
+            
+            <input type="text" id="verify-code" placeholder="Код..." autocomplete="off"
+                   class="w-full bg-slate-800 border-2 border-white/10 rounded-xl px-4 py-3.5 mb-6 focus:border-cyan-400 focus:outline-none font-black text-center text-xl tracking-widest text-white uppercase">
+            
+            <button onclick="checkVerification()" class="w-full bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-black py-4 rounded-xl transition-all shadow-lg shadow-cyan-400/10 cursor-pointer">
+                ПЕРЕВІРИТИ
+            </button>
+        </div>
+    </div>
+
+    <div id="custom-alert" class="fixed inset-0 bg-slate-950/90 backdrop-blur-lg z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 ease-out">
+        <div id="alert-card" class="border p-8 rounded-3xl shadow-2xl max-w-sm w-full text-center transform scale-90 transition-all duration-300 ease-out">
+            <div id="alert-emoji" class="text-7xl mb-4 animate-bounce">🐟</div>
+            <h4 id="alert-title" class="text-3xl font-black mb-3">Успіх!</h4>
+            <p id="alert-text" class="text-slate-300 mb-6 font-medium leading-relaxed">Повідомлення</p>
+            <button onclick="closeAlert()" class="w-full bg-white text-slate-950 font-black py-3.5 rounded-xl hover:bg-slate-100 transition-colors shadow-md cursor-pointer">
+                ЧУДОВО
+            </button>
+        </div>
+    </div>
+
+    <footer class="text-center text-xs text-cyan-200/40 py-12 mt-12 border-t border-white/5">
+        <p>© 2026 Проєкт «Міні Ставок». Рибальте з розумом 🌊</p>
+    </footer>
+
+    <script>
+        let currentScore = 0;
+
+        // Карта кодів та нагород
+        const gameCodes = {
+            'FISH26': { name: 'Звичайну рибку', points: 1, emoji: '🐟', success: true },
+            'CRAB77': { name: 'Краба', points: 3, emoji: '🦀', success: true },
+            'OCEANKING': { name: 'Легендарного Кита', points: 10, emoji: '🐳', success: true },
+            'ORCA55': { name: 'Небезпечну Касатку', points: -5, emoji: '🐋', success: false },
+            'SHARK99': { name: 'Хижу Акулу', points: -4, emoji: '🦈', success: false }
+        };
+
+        // Перемикання розділів програми
+        function openSection(sectionId) {
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Запуск таймера риболовлі
+        function startFishing() {
+            const statusDiv = document.getElementById('fishing-status');
+            const countdownDiv = document.getElementById('countdown');
+            const countdownNum = document.getElementById('countdown-number');
+
+            statusDiv.style.display = 'none';
+            countdownDiv.classList.remove('hidden');
+
+            let secondsLeft = 3;
+            countdownNum.innerText = secondsLeft;
+
+            const countdownInterval = setInterval(() => {
+                secondsLeft--;
+                countdownNum.innerText = secondsLeft;
+
+                if (secondsLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownDiv.classList.add('hidden');
+                    statusDiv.style.display = 'block';
+                    openCodeModal();
+                }
+            }, 1000);
+        }
+
+        // ПЛАВНЕ ВІДКРИТТЯ ВІКНА КОДУ
+        function openCodeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            const card = document.getElementById('modal-card');
+            
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-90');
+            card.classList.add('scale-100');
+            
+            document.getElementById('verify-code').focus();
+        }
+
+        // ПЛАВНЕ ЗАКРИТТЯ ВІКНА КОДУ
+        function closeCodeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            const card = document.getElementById('modal-card');
+            
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-90');
+            
+            document.getElementById('verify-code').value = '';
+        }
+
+        // Перевірка верифікації
+        function checkVerification() {
+            const codeInput = document.getElementById('verify-code');
+            const enteredCode = codeInput.value.trim().toUpperCase();
+            
+            closeCodeModal();
+
+            setTimeout(() => {
+                if (gameCodes.hasOwnProperty(enteredCode)) {
+                    const item = gameCodes[enteredCode];
+                    
+                    // Зміна рахунку
+                    currentScore += item.points;
+                    
+                    // ОБМЕЖЕННЯ: Захист від від'ємного рахунку (мінімум 0 балів)
+                    if (currentScore < 0) {
+                        currentScore = 0;
+                    }
+                    
+                    document.getElementById('global-score').innerText = currentScore;
+                    
+                    triggerCustomAlert(
+                        item.success ? "Гарний улов!" : "Ой-ой!",
+                        `Ви зустріли: <b>${item.name}</b>!<br>Ваш результат змінюється на: <b class="text-xl">${item.points > 0 ? '+' + item.points : item.points} балів</b>.`,
+                        item.emoji,
+                        item.success ? "border-emerald-500/30 bg-slate-900 text-white" : "border-rose-500/30 bg-slate-900 text-white"
+                    );
+                } else {
+                    triggerCustomAlert(
+                        "Помилка!",
+                        "Код верифікації невірний або риба зірвалася з гачка. Спробуйте ще раз!",
+                        "❌",
+                        "border-amber-500/30 bg-slate-900 text-white"
+                    );
+                }
+            }, 300);
+        }
+
+        // ПЛАВНЕ ВИКЛИКАННЯ ХАРАКТЕРНОГО СПОВІЩЕННЯ
+        function triggerCustomAlert(title, text, emoji, cardClass) {
+            const alertOverlay = document.getElementById('custom-alert');
+            const alertCard = document.getElementById('alert-card');
+            
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-text').innerHTML = text;
+            document.getElementById('alert-emoji').innerText = emoji;
+            
+            alertCard.className = `p-8 rounded-3xl shadow-2xl max-w-sm w-full text-center transform transition-all duration-300 ease-out scale-100 ${cardClass}`;
+            
+            alertOverlay.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        // ПЛАВНЕ ЗАКРИТТЯ СПОВІЩЕННЯ
+        function closeAlert() {
+            const alertOverlay = document.getElementById('custom-alert');
+            const alertCard = document.getElementById('alert-card');
+            
+            alertOverlay.classList.add('opacity-0', 'pointer-events-none');
+            alertCard.classList.remove('scale-100');
+            alertCard.classList.add('scale-90');
+            
+            setTimeout(() => {
+                openSection('score');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
